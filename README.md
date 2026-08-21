@@ -1,59 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Minimart Catalog
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravelで作成した、ミニマートの商品管理アプリです。
 
-## About Laravel
+ユーザー認証、商品のCRUD、セクション管理、Eloquentのリレーションなど、Laravelを使ったWebアプリ開発の基本を学ぶために制作しました。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 主な機能
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- ユーザー登録・ログイン・ログアウト
+- 未ログインユーザーのアクセス制限
+- 商品の一覧表示・新規登録・編集・更新
+- 削除確認モーダルを使った商品の削除
+- セクションの一覧表示・登録・削除
+- 商品登録・編集時のセクション選択
+- フォームバリデーション
+- CSRF対策
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## データベース構成
 
-## Learning Laravel
+主に次の3つのテーブルを使用しています。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- `users`：ユーザー情報
+- `sections`：商品のカテゴリー
+- `products`：商品情報
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+SectionとProductには一対多のリレーションがあります。
 
-## Laravel Sponsors
+```text
+1つのSection
+└── 複数のProduct
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+例：
 
-### Premium Partners
+```text
+Beverages
+├── Pepsi
+├── Coffee
+└── Juice
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## CRUD
 
-## Contributing
+| 操作 | 内容 |
+| --- | --- |
+| Create | 商品の登録 |
+| Read | 商品の一覧表示 |
+| Update | 商品の編集・更新 |
+| Delete | 商品の削除 |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 使用技術
 
-## Code of Conduct
+- PHP 8.2以上
+- Laravel 12
+- Laravel UI
+- MySQL
+- Blade
+- Bootstrap 5
+- JavaScript
+- Vite
+- Font Awesome
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## セットアップ
 
-## Security Vulnerabilities
+### 1. リポジトリを取得
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+git clone https://github.com/yamamoto-666/laravel-minimart.git
+cd laravel-minimart
+```
 
-## License
+### 2. PHPパッケージをインストール
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer install
+```
+
+### 3. 環境設定ファイルを作成
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+`.env`に使用するデータベースの接続情報を設定してください。
+
+### 4. テーブルを作成
+
+```bash
+php artisan migrate
+```
+
+### 5. フロントエンドを準備
+
+```bash
+npm install
+npm run build
+```
+
+### 6. アプリを起動
+
+```bash
+php artisan serve
+```
+
+起動後、ブラウザで `http://127.0.0.1:8000` を開きます。
+
+## 主な画面
+
+- ログイン・ユーザー登録画面
+- 商品一覧画面
+- 商品登録画面
+- 商品編集画面
+- 商品削除確認モーダル
+- セクション管理画面
+
+## 学んだこと
+
+- LaravelのMVC構造
+- Migrationを使ったデータベース設計
+- Eloquentによるデータ操作
+- `hasMany`と`belongsTo`による一対多リレーション
+- RouteとHTTPメソッド（GET、POST、PATCH、DELETE）
+- CRUDの実装
+- 認証ミドルウェアによるアクセス制限
+- バリデーションとCSRF対策
+- BladeとBootstrapを使った画面作成
+- 外部キー制約によるデータ整合性
+- Git・GitHubを使ったバージョン管理
+
+## 今後の改善案
+
+- Feature Testの追加
+- 使用中のセクションを削除した際のエラーメッセージ改善
+- フラッシュメッセージの表示
+- 商品検索・並び替え・ページネーション
+- READMEへの画面スクリーンショット追加
